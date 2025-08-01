@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer {
+  body {
+    @apply bg-zinc-950 p-2 text-zinc-50;
+  }
+}
