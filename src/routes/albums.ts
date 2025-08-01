@@ -2,8 +2,8 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/', (res, req) => {
-  req.send('Photos route works');
+router.get('/', (req, res) => {
+  res.send('Albums route works');
 });
 
 export default router;
