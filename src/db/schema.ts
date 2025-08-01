@@ -2,7 +2,18 @@ import { integer, pgTable, varchar } from 'drizzle-orm/pg-core';
 
 export const photosTable = pgTable('photos', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  file_name: varchar({ length: 255 }).notNull(),
+  fileName: varchar({ length: 255 }).notNull(),
   title: varchar({ length: 255 }).notNull(),
   alt: varchar({ length: 255 }).notNull()
+});
+
+export const usersTable = pgTable('users', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userName: varchar({ length: 255 }).notNull()
+});
+
+export const albumsTable = pgTable('albums', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  albumName: varchar({ length: 255 }).notNull(),
+  albumPhotos: varchar({ length: 255 }).notNull()
 });
