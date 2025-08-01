@@ -1,11 +1,5 @@
-import ExamplePopover from './components/Popover';
-
 const App = () => {
-  return (
-    <div className='p-2'>
-      <ExamplePopover />
-    </div>
-  );
+  return <div className='p-2'>App works</div>;
 };
 
 export default App;
