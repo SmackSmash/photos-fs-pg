@@ -18,7 +18,6 @@ router.get('/', async (req, res) => {
         email: users.email
       })
       .from(users);
-    console.log(result);
     res.send(result);
   } catch (error) {
     res.status(500).send(error);
