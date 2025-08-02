@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 const UsersList = () => {
   return (
     <div>
-      <Button>Click me!</Button>
+      <Button variant='outline'>Click me!</Button>
     </div>
   );
 };
