@@ -1,7 +1,8 @@
+import type { FC } from 'react';
 import { ThemeProvider } from './components/ui/theme-provider';
 import UsersList from './components/UsersList';
 
-const App = () => {
+const App: FC = () => {
   return (
     <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
       <div className='container mx-auto p-2'>

@@ -1,11 +1,7 @@
-import { Button } from './ui/button';
+import type { FC } from 'react';
 
-const UsersList = () => {
-  return (
-    <div>
-      <Button variant='outline'>Click me!</Button>
-    </div>
-  );
+const UsersList: FC = () => {
+  return <div>UsersList</div>;
 };
 
 export default UsersList;
