@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import { ThemeProvider } from './components/ui/theme-provider';
-import UsersList from './components/UsersList';
+import { ThemeProvider } from '@/components/ui/theme-provider';
+import UsersList from '@/components/UsersList';
 
 const App: FC = () => {
   return (
