@@ -12,4 +12,8 @@ app.use('/albums', albumsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
+  console.log('RESOURCES:');
+  console.log(`http:/localhost:${process.env.PORT}/photos`);
+  console.log(`http:/localhost:${process.env.PORT}/users`);
+  console.log(`http:/localhost:${process.env.PORT}/albums`);
 });
