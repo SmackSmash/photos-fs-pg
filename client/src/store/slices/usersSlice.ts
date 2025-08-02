@@ -1,5 +1,5 @@
 import { createSlice, type SerializedError } from '@reduxjs/toolkit';
-import fetchUsers from '../thunks/fetchUsers';
+import { fetchUsers } from '@/store';
 import { type User } from '@/types';
 
 type UsersState = {
