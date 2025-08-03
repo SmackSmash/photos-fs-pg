@@ -1,6 +1,6 @@
 import { useEffect, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { fetchUsers } from '@/store';
+import { fetchUsers, addUser } from '@/store';
 import { faker } from '@faker-js/faker';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from './ui/button';
@@ -17,13 +17,15 @@ const UsersList: FC = () => {
     const firstName = faker.person.firstName();
     const secondName = faker.person.lastName();
 
-    console.log({
-      firstName,
-      secondName,
-      userName: faker.internet.username({ firstName, lastName: secondName }),
-      email: faker.internet.email({ firstName, lastName: secondName }),
-      password: faker.internet.password()
-    });
+    dispatch(
+      addUser({
+        firstName,
+        secondName,
+        userName: faker.internet.username({ firstName, lastName: secondName }),
+        email: faker.internet.email({ firstName, lastName: secondName }),
+        password: faker.internet.password()
+      })
+    );
   };
 
   if (isLoading)

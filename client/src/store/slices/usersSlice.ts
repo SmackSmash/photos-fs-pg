@@ -32,9 +32,16 @@ const usersSlice = createSlice({
       state.data = action.payload;
     });
     // Add user
-    builder.addCase(addUser.pending, () => {});
-    builder.addCase(addUser.rejected, () => {});
-    builder.addCase(addUser.fulfilled, () => {});
+    builder.addCase(addUser.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(addUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error;
+    });
+    builder.addCase(addUser.fulfilled, state => {
+      state.isLoading = false;
+    });
   }
 });
 
