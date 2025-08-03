@@ -32,8 +32,7 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.post('/', async (req, res) => {
   try {
-    const insertUserSchema = createInsertSchema(users);
-    const parsed = insertUserSchema.parse(req.body);
+    const parsed = createInsertSchema(users).parse(req.body);
     const result = await db.insert(users).values(parsed);
     res.send(result);
   } catch (error) {
