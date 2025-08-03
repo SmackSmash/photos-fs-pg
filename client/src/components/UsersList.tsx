@@ -1,6 +1,7 @@
 import { useEffect, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchUsers } from '@/store';
+import { faker } from '@faker-js/faker';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from './ui/button';
 
@@ -11,6 +12,18 @@ const UsersList: FC = () => {
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  const handleAddUser = () => {
+    const firstName = faker.person.firstName();
+    const secondName = faker.person.lastName();
+
+    console.log({
+      firstName,
+      secondName,
+      userName: faker.internet.username({ firstName, lastName: secondName }),
+      email: faker.internet.email({ firstName, lastName: secondName })
+    });
+  };
 
   if (isLoading)
     return (
@@ -27,12 +40,12 @@ const UsersList: FC = () => {
     <div>
       <div className='flex items-center pb-2'>
         <h1>List of Users</h1>
-        <Button variant='secondary' className='ml-auto'>
+        <Button variant='secondary' onClick={handleAddUser} className='ml-auto'>
           + Add User
         </Button>
       </div>
-      {data.map(({ firstName, secondName, userName, email }) => (
-        <div className='rounded bg-zinc-800 px-4 py-2'>
+      {data.map(({ id, firstName, secondName, userName, email }) => (
+        <div key={id} className='rounded bg-zinc-800 px-4 py-2'>
           <span className='flex items-center text-xs text-zinc-500'>
             <span className='mr-2 text-base text-zinc-50'>
               {firstName} {secondName}

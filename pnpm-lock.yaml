@@ -14,12 +14,18 @@ importers:
       drizzle-orm:
         specifier: ^0.44.4
         version: 0.44.4(@types/pg@8.15.5)(pg@8.16.3)
+      drizzle-zod:
+        specifier: ^0.8.2
+        version: 0.8.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3))(zod@4.0.14)
       express:
         specifier: ^5.1.0
         version: 5.1.0
       pg:
         specifier: ^8.16.3
         version: 8.16.3
+      zod:
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/express':
         specifier: ^5.0.3
@@ -557,6 +563,12 @@ packages:
       sqlite3:
         optional: true
 
+  drizzle-zod@0.8.2:
+    resolution: {integrity: sha512-9Do/16OjFFNrQDZgvMtxtDDwKWbFOxUAIwNPKX98SfxrP8H18vhN1BvNXbhelLcdgCE7GEaXDJqBjMExSkhpkA==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: ^3.25.1
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -945,6 +957,9 @@ packages:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
 
+  zod@4.0.14:
+    resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
+
 snapshots:
 
   '@drizzle-team/brocli@0.10.2': {}
@@ -1254,6 +1269,11 @@ snapshots:
     optionalDependencies:
       '@types/pg': 8.15.5
       pg: 8.16.3
+
+  drizzle-zod@0.8.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3))(zod@4.0.14):
+    dependencies:
+      drizzle-orm: 0.44.4(@types/pg@8.15.5)(pg@8.16.3)
+      zod: 4.0.14
 
   dunder-proto@1.0.1:
     dependencies:
@@ -1703,3 +1723,5 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  zod@4.0.14: {}

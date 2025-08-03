@@ -24,4 +24,11 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   POST /users
+// @desc    Add user
+// @access  Public
+router.post('/', async (req, res) => {
+  console.log(req.body);
+});
+
 export default router;
