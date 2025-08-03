@@ -31,9 +31,9 @@ const UsersList: FC = () => {
   if (isLoading)
     return (
       <div className='flex flex-col gap-2'>
-        <Skeleton className='h-5 w-50 rounded' />
-        <Skeleton className='h-5 w-50 rounded' />
-        <Skeleton className='h-5 w-50 rounded' />
+        <Skeleton className='h-10 w-full rounded' />
+        <Skeleton className='h-10 w-full rounded' />
+        <Skeleton className='h-10 w-full rounded' />
       </div>
     );
 
