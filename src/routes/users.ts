@@ -27,14 +27,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-const insertUserSchema = createInsertSchema(users);
-
 // @route   POST /users
 // @desc    Add user
 // @access  Public
 router.post('/', async (req, res) => {
-  console.log(req.body);
   try {
+    const insertUserSchema = createInsertSchema(users);
     const parsed = insertUserSchema.parse(req.body);
     const result = await db.insert(users).values(parsed);
     res.send(result);
