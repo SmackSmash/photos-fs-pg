@@ -2,6 +2,8 @@ import { Router } from 'express';
 import db from '../db/connect';
 import { usersTable as users } from '../db/schema';
 import { createInsertSchema } from 'drizzle-zod';
+import * as z from 'zod';
+import { ZodError } from 'zod';
 
 const router = Router();
 
@@ -35,7 +37,10 @@ router.post('/', async (req, res) => {
     const parsed = insertUserSchema.parse(req.body);
     res.send('User added successfully');
   } catch (error) {
-    console.log(error.message);
+    if (error instanceof ZodError) {
+      error.issues.forEach(issue => console.error(issue.message));
+      res.status(400).send(z.flattenError(error));
+    }
   }
 });
 
