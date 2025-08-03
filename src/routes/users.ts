@@ -33,7 +33,13 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const parsed = createInsertSchema(users).parse(req.body);
-    const result = await db.insert(users).values(parsed);
+    const result = await db.insert(users).values(parsed).returning({
+      id: users.id,
+      firstName: users.firstName,
+      secondName: users.secondName,
+      userName: users.userName,
+      email: users.email
+    });
     res.send(result);
   } catch (error) {
     if (error instanceof ZodError) {
