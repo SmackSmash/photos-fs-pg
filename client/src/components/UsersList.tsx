@@ -1,7 +1,7 @@
 import { useEffect, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchUsers } from '@/store';
-import { Spinner } from './ui/shadcn-io/spinner';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const UsersList: FC = () => {
   const { isLoading, error, data } = useAppSelector(({ users }) => users);
@@ -13,8 +13,10 @@ const UsersList: FC = () => {
 
   if (isLoading)
     return (
-      <div>
-        <Spinner variant='ring' />
+      <div className='flex flex-col gap-2'>
+        <Skeleton className='h-5 w-50 rounded' />
+        <Skeleton className='h-5 w-50 rounded' />
+        <Skeleton className='h-5 w-50 rounded' />
       </div>
     );
 
