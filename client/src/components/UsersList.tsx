@@ -25,13 +25,14 @@ const UsersList: FC = () => {
   return (
     <div>
       {data.map(({ firstName, secondName, userName, email }) => (
-        <>
-          <div>
-            Name: {firstName} {secondName}
-          </div>
-          <div>User name: {userName}</div>
-          <div>Email: {email}</div>
-        </>
+        <div className='rounded bg-zinc-800 px-4 py-2'>
+          <span className='flex items-center text-xs text-zinc-500'>
+            <span className='mr-2 text-xl text-zinc-50'>
+              {firstName} {secondName}
+            </span>
+            | {userName} | {email}
+          </span>
+        </div>
       ))}
     </div>
   );
