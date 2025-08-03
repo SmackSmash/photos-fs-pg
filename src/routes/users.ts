@@ -35,7 +35,8 @@ const insertUserSchema = createInsertSchema(users);
 router.post('/', async (req, res) => {
   try {
     const parsed = insertUserSchema.parse(req.body);
-    res.send('User added successfully');
+    const result = await db.insert(users).values(parsed);
+    res.send(result);
   } catch (error) {
     if (error instanceof ZodError) {
       error.issues.forEach(issue => console.error(issue.message));
