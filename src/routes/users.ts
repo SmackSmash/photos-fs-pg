@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import db from '../db/connect';
 import { usersTable as users } from '../db/schema';
+import { createInsertSchema } from 'drizzle-zod';
 
 const router = Router();
 
@@ -24,11 +25,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+const insertUserSchema = createInsertSchema(users);
+
 // @route   POST /users
 // @desc    Add user
 // @access  Public
 router.post('/', async (req, res) => {
-  console.log(req.body);
+  try {
+    const parsed = insertUserSchema.parse(req.body);
+    res.send('User added successfully');
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 export default router;

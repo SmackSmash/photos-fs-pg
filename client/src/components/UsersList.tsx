@@ -21,7 +21,8 @@ const UsersList: FC = () => {
       firstName,
       secondName,
       userName: faker.internet.username({ firstName, lastName: secondName }),
-      email: faker.internet.email({ firstName, lastName: secondName })
+      email: faker.internet.email({ firstName, lastName: secondName }),
+      password: faker.internet.password()
     });
   };
 
