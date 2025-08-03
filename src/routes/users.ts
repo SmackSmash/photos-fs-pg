@@ -33,6 +33,7 @@ const insertUserSchema = createInsertSchema(users);
 // @desc    Add user
 // @access  Public
 router.post('/', async (req, res) => {
+  console.log(req.body);
   try {
     const parsed = insertUserSchema.parse(req.body);
     const result = await db.insert(users).values(parsed);
