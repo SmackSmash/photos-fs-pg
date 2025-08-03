@@ -45,16 +45,18 @@ const UsersList: FC = () => {
           + Add User
         </Button>
       </div>
-      {data.map(({ id, firstName, secondName, userName, email }) => (
-        <div key={id} className='rounded bg-zinc-800 px-4 py-2'>
-          <span className='flex items-center text-xs text-zinc-500'>
-            <span className='mr-2 text-base text-zinc-50'>
-              {firstName} {secondName}
+      <div className='flex flex-col gap-2'>
+        {data.map(({ id, firstName, secondName, userName, email }) => (
+          <div key={id} className='rounded bg-zinc-800 px-4 py-2'>
+            <span className='flex items-center text-xs text-zinc-500'>
+              <span className='mr-2 text-base text-zinc-50'>
+                {firstName} {secondName}
+              </span>
+              | {userName} | {email}
             </span>
-            | {userName} | {email}
-          </span>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
