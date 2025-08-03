@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"pnpm run server\" \"pnpm run client\"",
+    "dev": "concurrently \"pnpm run server\" \"pnpm run client\" \"pnpm run studio\"",
     "server": "tsx --env-file=.env --watch ./src/index.ts",
-    "client": "pnpm run -C client dev"
+    "client": "pnpm run -C client dev",
+    "studio": "pnpm drizzle-kit studio"
   },
   "keywords": [],
   "author": "",
