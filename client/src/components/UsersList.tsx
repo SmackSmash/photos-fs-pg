@@ -2,6 +2,7 @@ import { useEffect, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchUsers } from '@/store';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from './ui/button';
 
 const UsersList: FC = () => {
   const { isLoading, error, data } = useAppSelector(({ users }) => users);
@@ -24,10 +25,16 @@ const UsersList: FC = () => {
 
   return (
     <div>
+      <div className='flex items-center pb-2'>
+        <h1>List of Users</h1>
+        <Button variant='secondary' className='ml-auto'>
+          + Add User
+        </Button>
+      </div>
       {data.map(({ firstName, secondName, userName, email }) => (
         <div className='rounded bg-zinc-800 px-4 py-2'>
           <span className='flex items-center text-xs text-zinc-500'>
-            <span className='mr-2 text-xl text-zinc-50'>
+            <span className='mr-2 text-base text-zinc-50'>
               {firstName} {secondName}
             </span>
             | {userName} | {email}
