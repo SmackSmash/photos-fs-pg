@@ -1,5 +1,5 @@
 import { createSlice, type SerializedError } from '@reduxjs/toolkit';
-import { fetchUsers } from '@/store';
+import { addUser, fetchUsers } from '@/store';
 import { type User } from '@/types';
 
 type UsersState = {
@@ -31,6 +31,10 @@ const usersSlice = createSlice({
       state.isLoading = false;
       state.data = action.payload;
     });
+    // Add user
+    builder.addCase(addUser.pending, () => {});
+    builder.addCase(addUser.rejected, () => {});
+    builder.addCase(addUser.fulfilled, () => {});
   }
 });
 
