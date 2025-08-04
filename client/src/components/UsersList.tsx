@@ -4,17 +4,20 @@ import { fetchUsers, addUser } from '@/store';
 import { faker } from '@faker-js/faker';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from './ui/button';
+import { Spinner } from './ui/shadcn-io/spinner';
 
 const UsersList: FC = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [loadingUsersError, setLoadingUsersError] = useState<null | unknown>(null);
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [creatingUserError, setIsCreatingUserError] = useState<null | unknown>(null);
   const { data } = useAppSelector(({ users }) => users);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
-      setIsLoadingUsers(true);
       try {
+        setIsLoadingUsers(true);
         await dispatch(fetchUsers()).unwrap();
       } catch (error) {
         setLoadingUsersError(error);
@@ -24,19 +27,25 @@ const UsersList: FC = () => {
     })();
   }, [dispatch]);
 
-  const handleAddUser = () => {
+  const handleAddUser = async () => {
     const firstName = faker.person.firstName();
     const secondName = faker.person.lastName();
-
-    dispatch(
-      addUser({
-        firstName,
-        secondName,
-        userName: faker.internet.username({ firstName, lastName: secondName }),
-        email: faker.internet.email({ firstName, lastName: secondName }),
-        password: faker.internet.password()
-      })
-    );
+    try {
+      setIsCreatingUser(true);
+      await dispatch(
+        addUser({
+          firstName,
+          secondName,
+          userName: faker.internet.username({ firstName, lastName: secondName }),
+          email: faker.internet.email({ firstName, lastName: secondName }),
+          password: faker.internet.password()
+        })
+      ).unwrap();
+    } catch (error) {
+      setIsCreatingUserError(error);
+    } finally {
+      setIsCreatingUser(false);
+    }
   };
 
   if (isLoadingUsers)
@@ -55,7 +64,7 @@ const UsersList: FC = () => {
       <div className='flex items-center pb-2'>
         <h1>List of Users</h1>
         <Button variant='secondary' onClick={handleAddUser} className='ml-auto'>
-          + Add User
+          {isCreatingUser ? <Spinner /> : '+ Add User'}
         </Button>
       </div>
       <div className='flex flex-col gap-2'>
