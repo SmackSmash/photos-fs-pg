@@ -1,31 +1,18 @@
-import { useEffect, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchUsers, addUser } from '@/store';
 import { faker } from '@faker-js/faker';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from './ui/button';
 import { Spinner } from './ui/shadcn-io/spinner';
+import useThunk from '@/store/hooks/useThunk';
 
 const UsersList: FC = () => {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingUsersError] = useState<null | unknown>(null);
+  const [isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [creatingUserError, setIsCreatingUserError] = useState<null | unknown>(null);
   const { data } = useAppSelector(({ users }) => users);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        setIsLoadingUsers(true);
-        await dispatch(fetchUsers()).unwrap();
-      } catch (error) {
-        setLoadingUsersError(error);
-      } finally {
-        setIsLoadingUsers(false);
-      }
-    })();
-  }, [dispatch]);
 
   const handleAddUser = async () => {
     const firstName = faker.person.firstName();
