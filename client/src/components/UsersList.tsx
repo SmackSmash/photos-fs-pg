@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchUsers, addUser } from '@/store';
 import { faker } from '@faker-js/faker';
@@ -6,11 +6,22 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from './ui/button';
 
 const UsersList: FC = () => {
-  const { isLoading, error, data } = useAppSelector(({ users }) => users);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const [loadingUsersError, setLoadingUsersError] = useState<null | unknown>(null);
+  const { data } = useAppSelector(({ users }) => users);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    (async () => {
+      setIsLoadingUsers(true);
+      try {
+        await dispatch(fetchUsers()).unwrap();
+      } catch (error) {
+        setLoadingUsersError(error);
+      } finally {
+        setIsLoadingUsers(false);
+      }
+    })();
   }, [dispatch]);
 
   const handleAddUser = () => {
@@ -28,7 +39,7 @@ const UsersList: FC = () => {
     );
   };
 
-  if (isLoading)
+  if (isLoadingUsers)
     return (
       <div className='flex flex-col gap-2'>
         <Skeleton className='h-10 w-full rounded' />
@@ -37,7 +48,7 @@ const UsersList: FC = () => {
       </div>
     );
 
-  if (error) return <div>{error.message}</div>;
+  if (loadingUsersError) return <div>Error fetching users</div>;
 
   return (
     <div>
