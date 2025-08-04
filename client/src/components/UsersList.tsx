@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchUsers, addUser } from '@/store';
 import { faker } from '@faker-js/faker';
@@ -9,30 +9,22 @@ import useThunk from '@/store/hooks/useThunk';
 
 const UsersList: FC = () => {
   const [isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
-  const [isCreatingUser, setIsCreatingUser] = useState(false);
-  const [creatingUserError, setIsCreatingUserError] = useState<null | unknown>(null);
+  const [isCreatingUser, creatingUserError] = useThunk(addUser);
   const { data } = useAppSelector(({ users }) => users);
   const dispatch = useAppDispatch();
 
-  const handleAddUser = async () => {
+  const handleAddUser = () => {
     const firstName = faker.person.firstName();
     const secondName = faker.person.lastName();
-    try {
-      setIsCreatingUser(true);
-      await dispatch(
-        addUser({
-          firstName,
-          secondName,
-          userName: faker.internet.username({ firstName, lastName: secondName }),
-          email: faker.internet.email({ firstName, lastName: secondName }),
-          password: faker.internet.password()
-        })
-      ).unwrap();
-    } catch (error) {
-      setIsCreatingUserError(error);
-    } finally {
-      setIsCreatingUser(false);
-    }
+    dispatch(
+      addUser({
+        firstName,
+        secondName,
+        userName: faker.internet.username({ firstName, lastName: secondName }),
+        email: faker.internet.email({ firstName, lastName: secondName }),
+        password: faker.internet.password()
+      })
+    ).unwrap();
   };
 
   if (loadingUsersError || creatingUserError) return <div>Error fetching users</div>;
