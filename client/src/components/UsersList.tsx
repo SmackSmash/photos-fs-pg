@@ -48,16 +48,7 @@ const UsersList: FC = () => {
     }
   };
 
-  if (isLoadingUsers)
-    return (
-      <div className='flex flex-col gap-2'>
-        <Skeleton className='h-10 w-full rounded' />
-        <Skeleton className='h-10 w-full rounded' />
-        <Skeleton className='h-10 w-full rounded' />
-      </div>
-    );
-
-  if (loadingUsersError) return <div>Error fetching users</div>;
+  if (loadingUsersError || creatingUserError) return <div>Error fetching users</div>;
 
   return (
     <div>
@@ -68,16 +59,24 @@ const UsersList: FC = () => {
         </Button>
       </div>
       <div className='flex flex-col gap-2'>
-        {data.map(({ id, firstName, secondName, userName, email }) => (
-          <div key={id} className='rounded bg-zinc-800 px-4 py-2'>
-            <span className='flex items-center text-xs text-zinc-500'>
-              <span className='mr-2 text-base text-zinc-50'>
-                {firstName} {secondName}
-              </span>
-              | {userName} | {email}
-            </span>
+        {isLoadingUsers ? (
+          <div className='flex flex-col gap-2'>
+            <Skeleton className='h-10 w-full rounded' />
+            <Skeleton className='h-10 w-full rounded' />
+            <Skeleton className='h-10 w-full rounded' />
           </div>
-        ))}
+        ) : (
+          data.map(({ id, firstName, secondName, userName, email }) => (
+            <div key={id} className='rounded bg-zinc-800 px-4 py-2'>
+              <span className='flex items-center text-xs text-zinc-500'>
+                <span className='mr-2 text-base text-zinc-50'>
+                  {firstName} {secondName}
+                </span>
+                | {userName} | {email}
+              </span>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
