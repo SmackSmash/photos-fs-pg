@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from '.';
 import type { AsyncThunk } from '@reduxjs/toolkit';
 
-const useThunk = (thunk: AsyncThunk) => {
+const useThunk = (
+  // @ts-expect-error: Typing of async thunks is shoddy
+  thunk: AsyncThunk
+) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState<null | unknown>(null);
   const dispatch = useAppDispatch();
